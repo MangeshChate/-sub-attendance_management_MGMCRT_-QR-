@@ -92,9 +92,11 @@ app.get("/qr_attend",(req,res)=>{
       if (userExist) {
         res.sendFile('index2.html', { root: __dirname });
       
-
-        string = userExist._id
-        console.log(userExist._id)
+	userExist.forEach((user)=>{
+	
+	
+	string = user._id
+        console.log(user._id)
         string2 = string.toString()
         console.log(string2)
         Student.findByIdAndUpdate(
@@ -102,6 +104,9 @@ app.get("/qr_attend",(req,res)=>{
             { $inc: { spresent: 1 ,stoday:1} }
           ).exec();
       
+	
+	})
+        
 
 
       } else{
@@ -128,7 +133,7 @@ app.get("/qr_attend",(req,res)=>{
   
   
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 app.listen(port,(req,res)=>{
     console.log(`server running successfully on ${port}`);
