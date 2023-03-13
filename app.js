@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 mongoose.set('strictQuery', false);
 // mongoose.set('strictQuery', true);
 
-mongoose.connect("mongodb+srv://mangesh:QYTLPQdNOFoTwxuz@cluster0.6hhshhc.mongodb.net/studentDB?retryWrites=true&w=majority").then(()=>{
+mongoose.connect(process.env.MONGOURL).then(()=>{
     console.log("mongo connection successfully !");
 
 }).catch((e)=>{
@@ -84,7 +84,7 @@ app.get("already_submitted",(req,res)=>{
 app.get("/qr_attend",(req,res)=>{
     const user_email = req.query.semail;
     const user_password = req.query.sid;
-    Student.findOne({
+    Student.find({
       semail: user_email,
       sid: user_password,
       
@@ -92,7 +92,7 @@ app.get("/qr_attend",(req,res)=>{
       if (userExist) {
         res.sendFile('index2.html', { root: __dirname });
       
-	userExist.forEach((user)=>{
+	      userExist.forEach((user)=>{
 	
 	
 	string = user._id
